@@ -23,6 +23,8 @@
 
 #include <avr/interrupt.h>
 
+#include "state.h"
+
 #define NORTH_PIN _BV(0) //b
 #define SOUTH_PIN _BV(1) //b
 #define WEST_PIN _BV(2) //b
@@ -42,6 +44,9 @@ void communication_init(void) {
   DDRA &= ~EAST_PIN;
   PORTB |= NORTH_PIN | SOUTH_PIN | WEST_PIN;
   PORTB |= EAST_PIN;
+  //enable the pin change interrupts
+  PCMSK0 |= EAST_INTERRUPT;
+  PCMSK1 |= NORTH_INTERRUPT | SOUTH_INTERRUPT | WEST_INTERRUPT;
 }
 
 void communication_propagate(uint8_t value) {
@@ -63,3 +68,10 @@ void communication_propagate(uint8_t value) {
  * so sending must be real fast
  * so we need no timing?
  */
+
+ISR(PCINT0_vect)
+{
+}
+
+//we map PCINT1 to PCINT0 - since we want one intterrupt routine
+ISR(PCINT1_vect, ISR_ALIASOF(PCINT0_vect));
