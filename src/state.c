@@ -41,24 +41,6 @@ state_register_state()
 }
 
 void
-state_activate(state_t state_number)
-{
-  state |= state_number;
-}
-
-void
-state_deactivate(state_t state_number)
-{
-  state &= ~(state_number);
-}
-
-uint8_t
-state_is_active(state_t state_number)
-{
-  return state & state_number;
-}
-
-void
 state_process(void)
 {
   //advance one task and ensure that you zero after 7

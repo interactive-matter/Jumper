@@ -24,7 +24,7 @@
 #include <util/delay.h>
 #include <avr/interrupt.h>
 
-#include "i2cmaster.h"
+#include "spi.h"
 
 #define ACCELERATOR_CS _BV(0)
 #define ACCELERATOR_ADDRESS_PIN _BV(6)

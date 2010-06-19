@@ -21,20 +21,29 @@
  *  Created on: 14.02.2010
  */
 
+//we redefine the F_CPU - since there seems to be a problem
+//with avrclipse
+#define F_CPU 8000000u;
+
 #include <avr/common.h>
 #include <avr/io.h>
 #include <avr/interrupt.h>
+#include <avr/power.h>
 
 #include "accelerator.h"
 #include "led.h"
 
 #include "accelerator.h"
 
-//#define F_CPU 8000000u;
-
 int main (void) {
 
+  //we re not in a power critical environment
+  //but nevertheless switch off everything
+  power_all_disable();
+  //reset ports & pins
   DDRB = 0;
+  PORTB = 0;
+  DDRA = 0;
   PORTB = 0;
 
   //Start everything

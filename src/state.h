@@ -8,15 +8,18 @@
 #ifndef STATUS_H_
 #define STATUS_H_
 
+extern volatile uint8_t state;
+
 typedef void(*state_callback)(void);
 typedef uint8_t state_t;
 
 state_t state_register_task(state_callback callback);
 state_t state_register_state();
 void state_process(void);
-uint8_t state_is_active(state_t state_number);
-void state_activate(state_t state_number);
-void state_deactivate(state_t state_number);
+
+#define state_activate(state_number) state |= state_number;
+#define state_deactivate(state_number) state &= ~(state_number);
+#define state_is_active(state_number) (state & state_number)
 
 
 #endif /* STATUS_H_ */
