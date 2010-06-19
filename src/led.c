@@ -31,6 +31,9 @@
 volatile uint8_t led_calculate_state = 0;
 volatile uint8_t led_value = 0;
 
+void led_on();
+void led_off();
+
 void
 led_init(void)
 {

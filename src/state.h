@@ -9,13 +9,14 @@
 #define STATUS_H_
 
 typedef void(*state_callback)(void);
+typedef uint8_t state_t;
 
-uint8_t state_register_task(state_callback callback);
-uint8_t state_register_state();
+state_t state_register_task(state_callback callback);
+state_t state_register_state();
 void state_process(void);
-uint8_t state_is_active(uint8_t state_number);
-void state_activate(uint8_t state_number);
-void state_deactivate(uint8_t state_number);
+uint8_t state_is_active(state_t state_number);
+void state_activate(state_t state_number);
+void state_deactivate(state_t state_number);
 
 
 #endif /* STATUS_H_ */

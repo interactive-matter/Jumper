@@ -16,7 +16,7 @@ uint8_t registered_tasks = 0;
 state_callback state_callbacks[8] =
   { NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL };
 
-uint8_t
+state_t
 state_register_task(state_callback callback)
 {
   if ((registered_tasks < 7) && (callback != NULL))
@@ -32,7 +32,7 @@ state_register_task(state_callback callback)
     }
 }
 
-uint8_t
+state_t
 state_register_state()
 {
   uint8_t result = registered_tasks;
@@ -41,19 +41,19 @@ state_register_state()
 }
 
 void
-state_activate(uint8_t state_number)
+state_activate(state_t state_number)
 {
   state |= state_number;
 }
 
 void
-state_deactivate(uint8_t state_number)
+state_deactivate(state_t state_number)
 {
   state &= ~(state_number);
 }
 
 uint8_t
-state_is_active(uint8_t state_number)
+state_is_active(state_t state_number)
 {
   return state & state_number;
 }
