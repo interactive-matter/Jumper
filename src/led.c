@@ -26,7 +26,7 @@
 
 #include "accelerator.h"
 
-#define LED_PIN _BV(1)
+#define LED_PIN _BV(3)
 
 volatile uint8_t led_calculate_state = 0;
 volatile uint8_t led_value = 0;
@@ -35,12 +35,14 @@ void
 led_init(void)
 {
 
-  DDRB |= LED_PIN;
+  DDRA |= LED_PIN;
+}
 
-  //flashit!
-  PORTB |= LED_PIN;
+void
+led_start() {
+    led_on();
   _delay_ms(500);
-  PORTB &= ~(LED_PIN);
+    led_off();
 
   //we start with a dark led
   OCR0B = 0;
@@ -53,6 +55,17 @@ led_init(void)
   //& update the value after we reach top
   TIMSK0 = _BV(TOIE0);
 
+}
+
+void led_on()
+{
+    //flashit!
+    PORTA |= LED_PIN;
+}
+
+void led_off()
+{
+    PORTA &= ~(LED_PIN);
 }
 
 int16_t led_activity = 0;
@@ -69,6 +82,7 @@ led_calculate(void)
       } else {
         accel = accel_pre_read - accel_read;
       }
+      //poor mens exp function - sorta
       if (accel & _BV(1)) {
         accel = accel << 1;
       } else if (accel & _BV(2)) {

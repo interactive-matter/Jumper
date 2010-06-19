@@ -22,6 +22,7 @@
  */
 
 #include <avr/common.h>
+#include <avr/io.h>
 #include <avr/interrupt.h>
 
 #include "accelerator.h"
@@ -37,10 +38,15 @@ int main (void) {
   PORTB = 0;
 
   //Start everything
-  accelerator_init();
   led_init();
-  //and let the games begin
-  sei();
+  led_on();
+  uint8_t result = accelerator_init();
+  if (result==0) {
+    led_off();
+    led_start();
+    //and let the games begin
+    sei();
+  }
 
   while (1) {
     led_calculate();

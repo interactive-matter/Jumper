@@ -28,6 +28,15 @@ void
 led_init(void);
 
 void
+led_start(void);
+
+void
+led_on(void);
+
+void
+led_off(void);
+
+void
 led_calculate(void);
 
 #endif /* LED_H_ */

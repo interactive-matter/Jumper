@@ -24,7 +24,7 @@
 #ifndef ACCELERATOR_H_
 #define ACCELERATOR_H_
 
-void accelerator_init(void);
+int8_t accelerator_init(void);
 
 uint8_t accelerator_read();
 
